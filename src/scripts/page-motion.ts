@@ -5,7 +5,8 @@ import {
   motionEnabled,
   refreshOnLoad,
   registerMotion,
-  reveal,
+  resolveReveal,
+  revealStartVars,
 } from '../lib/motion/index.ts';
 
 type ResizeObserverLike = {
@@ -45,8 +46,28 @@ export function initPageMotion(root: Element): () => void {
     if (!motionEnabled()) return;
     registerMotion();
     context.add(() => {
-      const elements = Array.from(root.querySelectorAll('[data-reveal]'));
-      if (elements.length) reveal(elements);
+      const elements = Array.from(
+        root.querySelectorAll<HTMLElement>('[data-reveal]'),
+      );
+      if (!elements.length) return;
+      // Hide each element in its own start position, then reveal it as it
+      // scrolls into view — so motion happens on scroll, not all at once.
+      for (const element of elements)
+        gsap.set(element, revealStartVars(resolveReveal(element)));
+      ScrollTrigger.batch(elements, {
+        start: 'top 86%',
+        once: true,
+        onEnter: (batch) =>
+          gsap.to(batch, {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            duration: 0.6,
+            ease: 'power2.out',
+            stagger: 0.09,
+            overwrite: 'auto',
+          }),
+      });
     });
   };
 

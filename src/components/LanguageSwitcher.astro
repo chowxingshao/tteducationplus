@@ -9,6 +9,8 @@ interface Props {
 const { current, locales } = Astro.props;
 const ui = await getUi(current.locale);
 const routes = await getRouteManifest();
+const nameOf = (locale: string) =>
+  new Intl.DisplayNames([locale], { type: 'language' }).of(locale) ?? locale;
 const links = locales.map((locale) => ({
   locale,
   route: routes.find(
@@ -17,18 +19,56 @@ const links = locales.map((locale) => ({
       route.slug === current.slug &&
       route.locale === locale,
   ),
-  label:
-    new Intl.DisplayNames([locale], { type: 'language' }).of(locale) ?? locale,
+  label: nameOf(locale),
 }));
+const currentLabel = nameOf(current.locale);
 ---
 
-<nav class="language-switcher" aria-label={ui.accessibility.language}>
-  <ul class="nav-list">
+<nav
+  class="language-switcher"
+  data-language-switcher
+  aria-label={ui.accessibility.language}
+>
+  <button
+    type="button"
+    class="lang-trigger"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    <svg
+      class="lang-globe"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.7"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18" />
+    </svg>
+    <span class="lang-label">{currentLabel}</span>
+    <svg
+      class="lang-caret"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  </button>
+  <ul class="lang-menu" role="menu">
     {links.map(
       ({ locale, route, label }) =>
         route && (
-          <li>
+          <li role="none">
             <a
+              role="menuitem"
               href={route.path}
               lang={locale}
               aria-current={locale === current.locale ? 'page' : undefined}
@@ -40,3 +80,133 @@ const links = locales.map((locale) => ({
     )}
   </ul>
 </nav>
+
+<style>
+  .language-switcher {
+    position: relative;
+  }
+  .lang-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: var(--weight-medium);
+    color: var(--color-text);
+    background: var(--color-card);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-pill);
+    padding: 0.45rem 0.7rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.3s var(--ease);
+  }
+  .lang-trigger:hover {
+    transform: translateY(-1px);
+  }
+  .lang-globe {
+    inline-size: 1rem;
+    block-size: 1rem;
+    flex: none;
+    color: var(--color-muted);
+  }
+  .lang-label {
+    max-inline-size: 9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .lang-caret {
+    inline-size: 0.8rem;
+    block-size: 0.8rem;
+    flex: none;
+    color: var(--color-muted);
+    transition: transform 0.3s var(--ease);
+  }
+  .language-switcher[data-open] .lang-caret {
+    transform: rotate(180deg);
+  }
+  .lang-menu {
+    position: absolute;
+    inset-inline-end: 0;
+    inset-block-start: calc(100% + 0.4rem);
+    min-inline-size: 11rem;
+    margin: 0;
+    padding: 0.35rem;
+    list-style: none;
+    background: var(--color-card);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lift);
+    display: none;
+    z-index: 30;
+  }
+  .language-switcher[data-open] .lang-menu {
+    display: block;
+  }
+  .lang-menu a {
+    display: block;
+    padding: 0.5rem 0.65rem;
+    border-radius: calc(var(--radius-sm) - 0.45rem);
+    text-decoration: none;
+    color: var(--color-text);
+    font-size: 0.85rem;
+  }
+  .lang-menu a:hover {
+    background: var(--color-surface);
+    text-decoration: none;
+  }
+  .lang-menu a[aria-current='page'] {
+    background: var(--color-accent-soft);
+    font-weight: var(--weight-heading);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lang-trigger,
+    .lang-caret {
+      transition: none;
+    }
+  }
+  /* Compact to a globe on small screens so the header stays single-row. */
+  @media (max-width: 760px) {
+    .lang-label {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  function wire(root: Document) {
+    for (const node of root.querySelectorAll<HTMLElement>(
+      '[data-language-switcher]',
+    )) {
+      if (node.dataset.wired) continue;
+      node.dataset.wired = 'true';
+      const trigger = node.querySelector<HTMLButtonElement>('.lang-trigger');
+      if (!trigger) continue;
+      const close = () => {
+        node.removeAttribute('data-open');
+        trigger.setAttribute('aria-expanded', 'false');
+      };
+      const open = () => {
+        node.setAttribute('data-open', '');
+        trigger.setAttribute('aria-expanded', 'true');
+      };
+      trigger.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if (node.hasAttribute('data-open')) close();
+        else open();
+      });
+      root.addEventListener('click', (event) => {
+        if (!node.contains(event.target as Node)) close();
+      });
+      node.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          close();
+          trigger.focus();
+        }
+      });
+    }
+  }
+  wire(document);
+  document.addEventListener('astro:page-load', () => wire(document));
+</script>

@@ -6,14 +6,27 @@ interface Props {
 const { locale } = Astro.props;
 const ui = await getUi(locale);
 const s = ui.home.subjects;
-const subjects = [
-  { name: s.chemName, level: s.chemLevel, body: s.chemBody, icon: 'flask' },
-  { name: s.physName, level: s.physLevel, body: s.physBody, icon: 'atom' },
-  { name: s.mathName, level: s.mathLevel, body: s.mathBody, icon: 'function' },
-  { name: s.sciName, level: s.sciLevel, body: s.sciBody, icon: 'orbit' },
-  { name: s.sejName, level: s.sejLevel, body: s.sejBody, icon: 'book' },
-  { name: s.bmName, level: s.bmLevel, body: s.bmBody, icon: 'quote' },
+const tiers = [
+  {
+    name: s.lowerName,
+    level: s.lowerLevel,
+    subjects: s.lowerSubjects,
+    body: s.lowerBody,
+  },
+  {
+    name: s.upperName,
+    level: s.upperLevel,
+    subjects: s.upperSubjects,
+    body: s.upperBody,
+  },
+  {
+    name: s.igcseName,
+    level: s.igcseLevel,
+    subjects: s.igcseSubjects,
+    body: s.igcseBody,
+  },
 ];
+const chips = (value: string) => value.split('·').map((item) => item.trim());
 ---
 
 <section class="site-section subjects" id="subjects">
@@ -29,73 +42,19 @@ const subjects = [
       </h2>
       <p class="section-intro">{s.intro}</p>
     </div>
-    <ul class="subject-grid" data-reveal>
-      {subjects.map((subject) => (
-        <li class="subject-card">
-          <span class="subject-mark" aria-hidden="true">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.6"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              {subject.icon === 'flask' && (
-                <>
-                  <path d="M9 3v6l-5 9a2 2 0 0 0 1.8 3h12.4A2 2 0 0 0 20 18l-5-9V3" />
-                  <path d="M8 3h8M7.5 14h9" />
-                </>
-              )}
-              {subject.icon === 'atom' && (
-                <>
-                  <circle cx="12" cy="12" r="2.2" />
-                  <ellipse cx="12" cy="12" rx="10" ry="4.5" />
-                  <ellipse
-                    cx="12"
-                    cy="12"
-                    rx="10"
-                    ry="4.5"
-                    transform="rotate(60 12 12)"
-                  />
-                  <ellipse
-                    cx="12"
-                    cy="12"
-                    rx="10"
-                    ry="4.5"
-                    transform="rotate(120 12 12)"
-                  />
-                </>
-              )}
-              {subject.icon === 'function' && (
-                <>
-                  <path d="M4 6h16M4 12h16M4 18h10" />
-                  <circle cx="18.5" cy="18" r="2.2" />
-                </>
-              )}
-              {subject.icon === 'orbit' && (
-                <>
-                  <path d="M12 3a9 9 0 1 0 9 9" />
-                  <path d="M12 3v9l6 3" />
-                </>
-              )}
-              {subject.icon === 'book' && (
-                <>
-                  <path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z" />
-                  <path d="M18 3v16" />
-                </>
-              )}
-              {subject.icon === 'quote' && (
-                <>
-                  <path d="M4 7h11M8 4v3M6 7c0 5 3 8 7 9M11 7c0 4-2 7-6 9" />
-                  <path d="M14 20l3.5-8 3.5 8M15.2 17h4.6" />
-                </>
-              )}
-            </svg>
-          </span>
-          <h3>{subject.name}</h3>
-          <p class="subject-level">{subject.level}</p>
-          <p class="subject-body">{subject.body}</p>
+    <ul class="tier-grid">
+      {tiers.map((tier) => (
+        <li class="tier-card" data-reveal>
+          <div class="tier-head">
+            <h3>{tier.name}</h3>
+            <p class="tier-level">{tier.level}</p>
+          </div>
+          <ul class="tier-subjects">
+            {chips(tier.subjects).map((subject) => (
+              <li>{subject}</li>
+            ))}
+          </ul>
+          <p class="tier-body">{tier.body}</p>
         </li>
       ))}
     </ul>
@@ -103,7 +62,7 @@ const subjects = [
 </section>
 
 <style>
-  .subject-grid {
+  .tier-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-sm);
@@ -111,63 +70,70 @@ const subjects = [
     padding: 0;
     list-style: none;
   }
-  .subject-card {
+  .tier-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
     background: var(--color-card);
     border: var(--border-width) solid var(--color-border);
     border-radius: var(--radius-md);
-    padding: 1.5rem 1.4rem 1.4rem;
+    padding: 1.6rem 1.5rem;
     box-shadow: var(--shadow-card);
     transition:
       transform 0.45s var(--ease),
       box-shadow 0.45s var(--ease);
   }
-  .subject-card:hover {
+  .tier-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lift);
   }
-  .subject-mark {
-    inline-size: 2.75rem;
-    block-size: 2.75rem;
-    border-radius: 0.85rem;
-    background: var(--color-accent-soft);
-    color: var(--color-text);
-    display: grid;
-    place-items: center;
-    margin-block-end: 1.1rem;
+  .tier-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
   }
-  .subject-mark svg {
-    inline-size: 1.4rem;
-    block-size: 1.4rem;
-  }
-  .subject-card h3 {
+  .tier-card h3 {
     margin: 0;
     font-size: var(--font-size-subheading);
   }
-  .subject-level {
+  .tier-level {
+    margin: 0;
     font-family: var(--font-mono);
     font-size: 0.65rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-muted);
-    margin: 0.45rem 0 0.7rem;
   }
-  .subject-body {
+  .tier-subjects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
     margin: 0;
+    padding: 0.2rem 0 0.4rem;
+    list-style: none;
+    border-block-start: var(--border-width) solid var(--color-border);
+    padding-block-start: var(--space-sm);
+  }
+  .tier-subjects li {
+    font-size: 0.78rem;
+    font-weight: var(--weight-medium);
+    padding: 0.3rem 0.65rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-accent-soft);
+    color: var(--color-text);
+  }
+  .tier-body {
+    margin: auto 0 0;
     font-size: var(--font-size-small);
     color: var(--color-muted);
   }
   @media (prefers-reduced-motion: reduce) {
-    .subject-card {
+    .tier-card {
       transition: none;
     }
   }
   @media (max-width: 860px) {
-    .subject-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media (max-width: 540px) {
-    .subject-grid {
+    .tier-grid {
       grid-template-columns: 1fr;
     }
   }

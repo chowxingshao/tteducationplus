@@ -9,8 +9,9 @@ A clean, studious landing page built around the brand's black / white / yellow
 badge. The signature device is a **yellow "highlighter" sweep** over the key
 word in each major heading — a nod to marking up a textbook. Light theme by
 default (white with a faint graph-paper panel behind the hero), with a fully
-designed dark theme that echoes the black logo. Motion is light: a gentle
-reveal on load and small hover lifts.
+designed dark theme that echoes the black logo, switchable with a light/dark
+toggle (stored choice overrides the OS setting). Motion is light: gentle
+scroll-triggered reveals as sections enter the viewport, plus small hover lifts.
 
 ## Palette (tokens in `src/styles/tokens.css`)
 
@@ -33,8 +34,11 @@ Sans 3 stays self-hosted. See the dependency justification in `README`.
 ## Layout
 
 Single scrolling home page with anchored sections, reachable from the header:
-Hero → How it works (Exam Prep / 1-to-1 / Door-to-Door) → Subjects (6 cards) →
-Gallery → Schedule → FAQ → About → Contact (WhatsApp + Instagram, no form).
+Hero → How it works (One-to-One / Small-Group / Online) → Programmes (Lower
+Secondary / Upper Secondary / IGCSE tiers) → Gallery → Testimonials → Arrangements
+& fees → Trial-class CTA → FAQ → About → Contact (WhatsApp + Instagram, no form).
+The header hides on scroll-down, and carries a language-switcher dropdown and a
+light/dark theme toggle.
 
 ## Localisation
 
@@ -46,8 +50,12 @@ launch** (per the template's i18n policy).
 
 ## Placeholders to replace before launch
 
-- Real logo artwork (currently a CSS/SVG badge placeholder).
 - Real WhatsApp number (currently `wa.me/60000000000`).
 - Gallery photos (currently styled placeholders).
-- Real course details, schedule times, and FAQ answers.
+- Testimonials (currently clearly-marked sample quotes with generic attributions).
+- Tutor qualifications/profile, fee figures, and real schedule times.
 - Production domain in `site.config.ts` (`url`).
+
+The logo is now implemented as an inline SVG badge rebuilt from the supplied
+artwork (`src/components/BrandBadge.astro`); swap in vector files only if the
+client later wants exact-path artwork.

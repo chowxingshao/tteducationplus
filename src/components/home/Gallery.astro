@@ -19,9 +19,9 @@ const tiles = ['a', 'b', 'c', 'd', 'e', 'f'];
       <h2>{g.title}</h2>
       <p class="section-intro">{g.intro}</p>
     </div>
-    <ul class="gallery-grid" data-reveal>
+    <ul class="gallery-grid">
       {tiles.map((tile, index) => (
-        <li class:list={['gallery-tile', `tile-${tile}`]}>
+        <li class:list={['gallery-tile', `tile-${tile}`]} data-reveal>
           <span class="tile-icon" aria-hidden="true">
             <svg
               viewBox="0 0 24 24"

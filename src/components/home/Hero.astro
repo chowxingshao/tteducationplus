@@ -9,6 +9,9 @@ const site = getSiteConfig();
 const ui = await getUi(locale);
 const hero = ui.home.hero;
 const whatsapp = site.social.whatsapp;
+const waHref = whatsapp
+  ? `${whatsapp}?text=${encodeURIComponent(ui.home.contact.waMessage)}`
+  : undefined;
 const instagram = site.social.instagram;
 const grades = [
   { subject: hero.reportSubject1, from: 'C', to: 'A', width: '88%' },
@@ -32,14 +35,14 @@ const grades = [
         {hero.lede}
       </p>
       <div class="cta-row" data-reveal>
-        {whatsapp && (
+        {waHref && (
           <a
             class="btn btn-primary"
-            href={whatsapp}
+            href={waHref}
             target="_blank"
             rel="noopener"
           >
-            {hero.ctaWhatsapp}
+            {hero.ctaTrial}
             <span class="btn-icon" aria-hidden="true">
               <svg
                 viewBox="0 0 24 24"

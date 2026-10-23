@@ -1,6 +1,7 @@
 ---
 import BrandBadge from './BrandBadge.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import ThemeToggle from './ThemeToggle.astro';
 import { getSiteConfig } from '../lib/config/site.ts';
 import { getUi } from '../lib/i18n/ui.ts';
 import { getRouteManifest } from '../lib/routing/manifest.ts';
@@ -24,18 +25,21 @@ const anchor = (id: string) => `${homePath}#${id}`;
 const links = [
   { href: anchor('subjects'), label: ui.nav.subjects },
   { href: anchor('approach'), label: ui.nav.approach },
+  { href: anchor('testimonials'), label: ui.nav.testimonials },
   { href: anchor('schedule'), label: ui.nav.schedule },
   { href: anchor('faq'), label: ui.nav.faq },
-  { href: anchor('contact'), label: ui.nav.contact },
 ];
 const locales = enabledLocales(site);
 const whatsapp = site.social.whatsapp;
+const waHref = whatsapp
+  ? `${whatsapp}?text=${encodeURIComponent(ui.home.contact.waMessage)}`
+  : undefined;
 ---
 
-<header class="site-header">
+<header class="site-header" data-autohide>
   <div class="shell site-header-inner">
     <a class="brand" href={homePath}>
-      <BrandBadge size={42} />
+      <BrandBadge size={38} />
       <span class="brand-text">
         <strong>{site.name}</strong>
         <span class="brand-sub">Teacher Thomas · Est. 2014</span>
@@ -54,10 +58,11 @@ const whatsapp = site.social.whatsapp;
       {current && locales.length > 1 && (
         <LanguageSwitcher current={current} locales={locales} />
       )}
-      {whatsapp && (
+      <ThemeToggle locale={locale} />
+      {waHref && (
         <a
-          class="btn btn-primary btn-sm"
-          href={whatsapp}
+          class="btn btn-primary btn-sm whatsapp-cta"
+          href={waHref}
           target="_blank"
           rel="noopener"
         >
@@ -88,17 +93,27 @@ const whatsapp = site.social.whatsapp;
     background: color-mix(in srgb, var(--color-page) 84%, transparent);
     backdrop-filter: blur(14px) saturate(1.3);
     border-block-end: var(--border-width) solid var(--color-border);
+    transition:
+      transform 0.4s var(--ease),
+      box-shadow 0.3s var(--ease);
+    will-change: transform;
+  }
+  .site-header.is-scrolled {
+    box-shadow: var(--shadow-card);
+  }
+  .site-header.is-hidden {
+    transform: translateY(-100%);
   }
   .site-header-inner {
     display: flex;
     align-items: center;
     gap: var(--space-md);
-    padding-block: 0.75rem;
+    padding-block: 0.5rem;
   }
   .brand {
     display: flex;
     align-items: center;
-    gap: 0.7rem;
+    gap: 0.6rem;
     text-decoration: none;
     color: var(--color-text);
   }
@@ -115,10 +130,11 @@ const whatsapp = site.social.whatsapp;
     font-weight: var(--weight-heading);
     font-size: 1rem;
     letter-spacing: -0.01em;
+    white-space: nowrap;
   }
   .brand-sub {
     font-family: var(--font-mono);
-    font-size: 0.6rem;
+    font-size: 0.58rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--color-muted);
@@ -128,12 +144,13 @@ const whatsapp = site.social.whatsapp;
   }
   .nav-list {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
-    gap: var(--space-xs) var(--space-md);
+    gap: var(--space-sm);
     margin: 0;
     padding: 0;
     list-style: none;
+    white-space: nowrap;
   }
   .primary-nav a {
     color: var(--color-muted);
@@ -151,21 +168,65 @@ const whatsapp = site.social.whatsapp;
     gap: var(--space-sm);
     margin-inline-start: auto;
   }
+  @media (prefers-reduced-motion: reduce) {
+    .site-header {
+      transition: none;
+    }
+  }
+  /* Collapse the in-page nav below the desktop width so it never wraps to a
+     second row; sections stay reachable by scrolling and from the footer. */
   @media (max-width: 900px) {
-    .site-header-inner {
-      flex-wrap: wrap;
-    }
     .primary-nav {
-      order: 3;
-      flex-basis: 100%;
-      margin-inline: 0;
+      display: none;
     }
-    .nav-list {
-      overflow-x: auto;
-      flex-wrap: nowrap;
-    }
+  }
+  @media (max-width: 760px) {
     .header-actions {
-      margin-inline-start: 0;
+      gap: 0.55rem;
+    }
+    .brand-sub {
+      display: none;
+    }
+    /* The hero, trial band, contact and footer all carry the WhatsApp CTA, so
+       drop the header's on phones to keep it to a single compact row. */
+    .whatsapp-cta {
+      display: none;
     }
   }
 </style>
+
+<script>
+  function wire(header: HTMLElement) {
+    if (header.dataset.wired) return;
+    header.dataset.wired = 'true';
+    let last = globalThis.scrollY;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const y = globalThis.scrollY;
+      header.classList.toggle('is-scrolled', y > 8);
+      const focusInside = header.contains(document.activeElement);
+      if (y > last && y > 140 && !focusInside)
+        header.classList.add('is-hidden');
+      else if (y < last || y <= 140) header.classList.remove('is-hidden');
+      last = y;
+    };
+    globalThis.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          ticking = true;
+          globalThis.requestAnimationFrame(update);
+        }
+      },
+      { passive: true },
+    );
+    update();
+  }
+  function init() {
+    const header = document.querySelector<HTMLElement>('[data-autohide]');
+    if (header) wire(header);
+  }
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>

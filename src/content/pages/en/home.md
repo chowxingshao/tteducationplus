@@ -1,11 +1,11 @@
 ---
-title: TT Education Plus — Tutoring with Teacher Thomas
-description: Exam prep, one-to-one and door-to-door tutoring with Teacher Thomas for Science, Chemistry, Physics, Maths, Sejarah and BM.
+title: Personalised Tutoring for SPM & IGCSE
+description: Personalised one-to-one, small-group and online tutoring with Teacher Thomas for SPM and IGCSE — Chemistry, Physics, Maths, Science, Sejarah and BM.
 slug: home
 draft: false
 structuredData:
   type: LocalBusiness
-  name: TT Education Plus
+  name: TT Education⁺
   url: https://tteducationplus.com
   sameAs:
     - https://instagram.com/ttedu.plus

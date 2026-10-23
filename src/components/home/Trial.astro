@@ -1,0 +1,125 @@
+---
+import { getSiteConfig } from '../../lib/config/site.ts';
+import { getUi } from '../../lib/i18n/ui.ts';
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+const site = getSiteConfig();
+const ui = await getUi(locale);
+const t = ui.home.trial;
+const whatsapp = site.social.whatsapp;
+const waHref = whatsapp
+  ? `${whatsapp}?text=${encodeURIComponent(ui.home.contact.waMessage)}`
+  : undefined;
+---
+
+<section class="site-section trial" id="trial">
+  <div class="shell">
+    <div class="trial-band" data-reveal>
+      <div class="trial-copy">
+        <span class="eyebrow trial-eyebrow">
+          <span class="dot"></span>
+          {t.eyebrow}
+        </span>
+        <h2>{t.title}</h2>
+        <p>{t.body}</p>
+      </div>
+      <div class="trial-action">
+        {waHref && (
+          <a class="btn btn-dark" href={waHref} target="_blank" rel="noopener">
+            {t.cta}
+            <span class="btn-icon" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </span>
+          </a>
+        )}
+        <span class="trial-note">{t.note}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .trial-band {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.75rem, 5vw, 3rem);
+    display: grid;
+    grid-template-columns: 1.5fr 0.9fr;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    align-items: center;
+    box-shadow: var(--shadow-lift);
+  }
+  .trial-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+  .trial-eyebrow {
+    background: rgba(20, 22, 26, 0.12);
+    border-color: rgba(20, 22, 26, 0.2);
+    color: var(--color-on-accent);
+  }
+  .trial-eyebrow .dot {
+    background: var(--color-ink-surface);
+  }
+  .trial-copy h2 {
+    margin: 0;
+    color: var(--color-on-accent);
+    font-size: var(--font-size-heading);
+  }
+  .trial-copy p {
+    margin: 0;
+    max-inline-size: 48ch;
+    color: #2a2410;
+  }
+  .trial-action {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+  .btn-dark {
+    background: var(--color-ink-surface);
+    color: var(--color-on-ink);
+    box-shadow: var(--shadow-card);
+  }
+  .btn-dark .btn-icon {
+    background: rgba(255, 255, 255, 0.16);
+  }
+  .btn-dark:hover {
+    transform: translateY(-1px);
+  }
+  .btn-dark:hover .btn-icon {
+    transform: translate(2px, -1px) scale(1.06);
+  }
+  .trial-note {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #2a2410;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn-dark:hover {
+      transform: none;
+    }
+  }
+  @media (max-width: 760px) {
+    .trial-band {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

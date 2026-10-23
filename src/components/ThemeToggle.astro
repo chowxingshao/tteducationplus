@@ -1,0 +1,129 @@
+---
+import { getUi } from '../lib/i18n/ui.ts';
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+const ui = await getUi(locale);
+---
+
+<button
+  type="button"
+  class="theme-toggle"
+  data-theme-toggle
+  aria-label={ui.accessibility.theme}
+  title={ui.accessibility.theme}
+>
+  <svg
+    class="icon icon-moon"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+  </svg>
+  <svg
+    class="icon icon-sun"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    inline-size: 2.2rem;
+    block-size: 2.2rem;
+    flex: none;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--color-text);
+    background: var(--color-card);
+    border: var(--border-width) solid var(--color-border);
+    box-shadow: var(--shadow-card);
+    transition:
+      transform 0.3s var(--ease),
+      background 0.3s var(--ease);
+  }
+  .theme-toggle:hover {
+    transform: translateY(-1px);
+  }
+  .theme-toggle .icon {
+    inline-size: 1.05rem;
+    block-size: 1.05rem;
+  }
+  /* Show the icon for the CURRENT theme (sun in dark, moon in light), tracking
+     both the OS preference and an explicit choice, so it matches with no JS. */
+  .icon-sun {
+    display: none;
+  }
+  .icon-moon {
+    display: block;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .icon-sun {
+      display: block;
+    }
+    :root:not([data-theme='light']) .icon-moon {
+      display: none;
+    }
+  }
+  :root[data-theme='dark'] .icon-sun {
+    display: block;
+  }
+  :root[data-theme='dark'] .icon-moon {
+    display: none;
+  }
+  :root[data-theme='light'] .icon-sun {
+    display: none;
+  }
+  :root[data-theme='light'] .icon-moon {
+    display: block;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .theme-toggle {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  function wire(root: Document) {
+    const resolve = () =>
+      root.documentElement.dataset.theme ||
+      (globalThis.matchMedia?.('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light');
+    for (const button of root.querySelectorAll<HTMLButtonElement>(
+      '[data-theme-toggle]',
+    )) {
+      if (button.dataset.wired) continue;
+      button.dataset.wired = 'true';
+      button.addEventListener('click', () => {
+        const next = resolve() === 'dark' ? 'light' : 'dark';
+        root.documentElement.dataset.theme = next;
+        try {
+          localStorage.setItem('theme', next);
+        } catch {
+          /* storage unavailable — choice applies for this page only */
+        }
+      });
+    }
+  }
+  wire(document);
+  document.addEventListener('astro:page-load', () => wire(document));
+</script>

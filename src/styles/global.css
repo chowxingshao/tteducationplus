@@ -64,22 +64,6 @@ time {
   margin-inline: auto;
   padding-inline: var(--space-page);
 }
-.site-header {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-md) var(--space-lg);
-  padding-block: var(--space-lg);
-  border-block-end: var(--border-width) solid var(--color-border);
-}
-.site-name {
-  color: var(--color-text);
-  font-weight: var(--weight-heading);
-  overflow-wrap: anywhere;
-}
-.site-header > nav {
-  margin-inline-start: auto;
-}
 .nav-list {
   display: flex;
   flex-wrap: wrap;
@@ -95,10 +79,6 @@ time {
 [aria-current='page'] {
   color: var(--color-text);
   font-weight: var(--weight-heading);
-}
-.language-switcher {
-  flex-basis: 100%;
-  font-size: var(--font-size-small);
 }
 .site-main {
   min-block-size: var(--height-main);

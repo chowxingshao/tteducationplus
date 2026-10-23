@@ -7,9 +7,9 @@ const { locale } = Astro.props;
 const ui = await getUi(locale);
 const ways = ui.home.ways;
 const items = [
-  { num: '1', title: ways.examTitle, body: ways.examBody },
-  { num: '2', title: ways.oneTitle, body: ways.oneBody },
-  { num: '3', title: ways.doorTitle, body: ways.doorBody },
+  { num: '1', title: ways.oneTitle, body: ways.oneBody },
+  { num: '2', title: ways.groupTitle, body: ways.groupBody },
+  { num: '3', title: ways.onlineTitle, body: ways.onlineBody },
 ];
 ---
 
@@ -22,9 +22,9 @@ const items = [
       </span>
       <h2>{ways.title}</h2>
     </div>
-    <ul class="ways-grid" data-reveal>
+    <ul class="ways-grid">
       {items.map((item) => (
-        <li class="way">
+        <li class="way" data-reveal>
           <span class="way-num" aria-hidden="true">
             {item.num}
           </span>
