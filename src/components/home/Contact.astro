@@ -1,0 +1,163 @@
+---
+import { getSiteConfig } from '../../lib/config/site.ts';
+import { getUi } from '../../lib/i18n/ui.ts';
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+const site = getSiteConfig();
+const ui = await getUi(locale);
+const c = ui.home.contact;
+const whatsapp = site.social.whatsapp;
+const instagram = site.social.instagram;
+---
+
+<section class="site-section contact" id="contact">
+  <div class="shell">
+    <div class="contact-card" data-reveal>
+      <div class="contact-copy">
+        <span class="eyebrow eyebrow-dark">
+          <span class="dot"></span>
+          {c.eyebrow}
+        </span>
+        <h2>
+          {c.titleLead} <span class="highlight">{c.titleHighlight}</span>
+        </h2>
+        <p class="contact-intro">{c.intro}</p>
+        <div class="contact-cta">
+          {whatsapp && (
+            <a
+              class="btn btn-primary"
+              href={whatsapp}
+              target="_blank"
+              rel="noopener"
+            >
+              {c.whatsappLabel}
+              <span class="btn-icon" aria-hidden="true">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+            </a>
+          )}
+          {instagram && (
+            <a
+              class="btn btn-outline-light"
+              href={instagram}
+              target="_blank"
+              rel="noopener"
+            >
+              {c.instagramLabel}
+            </a>
+          )}
+        </div>
+      </div>
+      <dl class="contact-info">
+        <div>
+          <dt>{c.hoursLabel}</dt>
+          <dd>{c.hours}</dd>
+        </div>
+        <div>
+          <dt>{c.areaLabel}</dt>
+          <dd>{c.area}</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-card {
+    background: var(--color-ink-surface);
+    color: var(--color-on-ink);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.75rem, 5vw, 3.25rem);
+    display: grid;
+    grid-template-columns: 1.4fr 0.9fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+    box-shadow: var(--shadow-lift);
+    background-image:
+      linear-gradient(0deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .contact-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+  .eyebrow-dark {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.16);
+    color: #d6d7da;
+  }
+  .contact-card h2 {
+    margin: 0;
+    color: var(--color-on-ink);
+    font-size: var(--font-size-heading);
+  }
+  .contact-intro {
+    margin: 0;
+    color: #b9bbc1;
+    max-inline-size: 42ch;
+  }
+  .contact-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-block-start: var(--space-xs);
+  }
+  .btn-outline-light {
+    background: transparent;
+    color: var(--color-on-ink);
+    border-color: rgba(255, 255, 255, 0.25);
+    padding: 0.7rem 1.2rem;
+  }
+  .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-1px);
+  }
+  .contact-info {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .contact-info div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding-block-start: var(--space-sm);
+    border-block-start: var(--border-width) solid rgba(255, 255, 255, 0.14);
+  }
+  .contact-info dt {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  .contact-info dd {
+    margin: 0;
+    font-weight: var(--weight-medium);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn-outline-light:hover {
+      transform: none;
+    }
+  }
+  @media (max-width: 760px) {
+    .contact-card {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

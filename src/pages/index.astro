@@ -1,5 +1,5 @@
 ---
-import PageView from '../components/PageView.astro';
+import HomePage from '../components/HomePage.astro';
 import { getRouteManifest } from '../lib/routing/manifest.ts';
 import { getSiteConfig } from '../lib/config/site.ts';
 const route = (await getRouteManifest()).find(
@@ -11,4 +11,4 @@ const route = (await getRouteManifest()).find(
 if (!route) throw new Error('A published home page is required.');
 ---
 
-<PageView route={route} />
+<HomePage route={route} />

@@ -86,6 +86,13 @@ describe('static discovery output', () => {
           name: 'Fixture Site',
           base,
           author: 'Fixture Author',
+          i18n: { defaultLocale: 'en', locales: ['en'] },
+          features: {
+            blog: true,
+            projects: true,
+            rss: true,
+            i18n: false,
+          } as SiteConfig['features'],
         },
         content: {
           'src/content/posts/en/draft.md':
@@ -201,10 +208,17 @@ describe('static discovery output', () => {
         url: 'https://fixture.example',
         base: '/demo/',
         i18n: { defaultLocale: 'en', locales: ['en', 'ms'] },
-        features: { i18n: true } as SiteConfig['features'],
+        features: {
+          blog: true,
+          projects: true,
+          rss: true,
+          i18n: true,
+        } as SiteConfig['features'],
       },
       content: {
         'src/i18n/ms.json': '{}',
+        'src/content/pages/en/about.md': page('About', 'about'),
+        'src/content/pages/en/contact.md': page('Contact', 'contact'),
         'src/content/pages/ms/contact.md': page('Hubungi', 'contact'),
         'src/content/posts/ms/welcome.md': page(
           'Selamat datang',

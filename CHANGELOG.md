@@ -6,6 +6,7 @@ All notable template changes are documented here using Keep a Changelog conventi
 
 ### Changed
 
+- Built the TT Education Plus client site ("Highlighter Study" direction): a composed, single-scroll trilingual (EN/BM/ZH-Hant) home page with hero, how-it-works, subjects, gallery, schedule, FAQ, about and WhatsApp/Instagram contact sections. Replaced the token palette and typography, disabled blog/projects/RSS, enabled i18n, and adapted the demonstration-coupled tests to the client configuration. See `docs/decisions/0006-tteducationplus-client-site.md`, `design-direction.md`, and `brief.md`. BM/ZH dictionaries are draft translations pending native-speaker review; the production domain and WhatsApp number are placeholders.
 - Consolidated agent guidance into a single `CLAUDE.md` and removed `AGENTS.md`; README and architecture references now point only to `CLAUDE.md`.
 
 ### Fixed

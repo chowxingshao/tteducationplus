@@ -206,6 +206,10 @@ describe('built contact form', () => {
     async (endpoint) => {
       const fixture = await buildFixture({
         config: { formEndpoint: endpoint },
+        content: {
+          'src/content/pages/en/contact.md':
+            '---\ntitle: Contact\ndescription: Contact this fixture.\nslug: contact\ndraft: false\n---\nContact body.\n',
+        },
       });
       try {
         expect(fixture.exitCode, fixture.stdout + fixture.stderr).toBe(0);

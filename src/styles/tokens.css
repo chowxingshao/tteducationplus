@@ -1,52 +1,106 @@
-/* Replace this demonstration direction with the approved client direction. */
+/* TT Education Plus — "Highlighter Study" direction.
+   Black / white with a yellow highlighter accent. Light default + dark theme
+   via prefers-color-scheme. Token names kept stable for global.css. */
 :root {
   color-scheme: light dark;
-  --color-page: #f8f6f1;
-  --color-surface: #efede6;
-  --color-text: #242724;
-  --color-muted: #565b55;
-  --color-link: #2153b8;
-  --color-border: #c8cac1;
-  --color-focus: #17469f;
-  --font-body: 'Source Sans 3', system-ui, sans-serif;
-  --font-size-body: 1.125rem;
-  --font-size-small: 1rem;
-  --font-size-title: clamp(2.25rem, 5.5vw, 4rem);
-  --font-size-heading: clamp(1.5rem, 3vw, 2rem);
-  --font-size-lead: clamp(1.25rem, 2vw, 1.5rem);
+
+  /* Surfaces & text */
+  --color-page: #ffffff;
+  --color-surface: #faf9f4;
+  --color-card: #ffffff;
+  --color-text: #16171b;
+  --color-muted: #5a5c63;
+  --color-link: #16171b;
+  --color-border: rgba(20, 22, 26, 0.12);
+  --color-focus: #16171b;
+
+  /* Accent (highlighter yellow) — same in both themes */
+  --color-accent: #f5c518;
+  --color-accent-soft: rgba(245, 197, 24, 0.24);
+  --color-on-accent: #16171b;
+  --color-ink-surface: #16171b;
+  --color-on-ink: #ffffff;
+
+  /* Graph-paper grid lines */
+  --color-grid: rgba(20, 22, 26, 0.05);
+
+  /* Shadows */
+  --shadow-card:
+    0 1px 2px rgba(20, 22, 26, 0.05), 0 8px 24px -16px rgba(20, 22, 26, 0.22);
+  --shadow-lift:
+    0 1px 2px rgba(20, 22, 26, 0.04), 0 18px 40px -20px rgba(20, 22, 26, 0.18);
+
+  /* Typography */
+  --font-display:
+    'Bricolage Grotesque', 'Noto Sans TC', 'Source Sans 3', system-ui,
+    sans-serif;
+  --font-body: 'Source Sans 3', 'Noto Sans TC', system-ui, sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, 'SFMono-Regular', monospace;
+  --font-size-body: 1.0625rem;
+  --font-size-small: 0.9375rem;
+  --font-size-title: clamp(2.5rem, 6vw, 4.25rem);
+  --font-size-heading: clamp(1.75rem, 3.6vw, 2.75rem);
+  --font-size-subheading: clamp(1.25rem, 2.2vw, 1.6rem);
+  --font-size-lead: clamp(1.1rem, 1.6vw, 1.3rem);
+  --font-size-eyebrow: 0.6875rem;
   --weight-body: 400;
-  --weight-heading: 600;
-  --line-body: 1.65;
-  --line-title: 1.08;
-  --line-heading: 1.2;
-  --tracking-title: -0.025em;
+  --weight-medium: 500;
+  --weight-heading: 700;
+  --line-body: 1.6;
+  --line-title: 1.02;
+  --line-heading: 1.08;
+  --tracking-title: -0.02em;
+  --tracking-eyebrow: 0.16em;
+
+  /* Space */
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 1.5rem;
   --space-lg: 2.5rem;
   --space-xl: clamp(3rem, 7vw, 6rem);
-  --space-page: clamp(1.25rem, 5vw, 3rem);
-  --width-site: 70rem;
-  --width-reading: 44rem;
+  --space-section: clamp(3.5rem, 8vw, 7rem);
+  --space-page: clamp(1.25rem, 5vw, 2.5rem);
+
+  /* Measures */
+  --width-site: 72rem;
+  --width-reading: 42rem;
   --width-thumbnail: 16rem;
   --height-main: 50vh;
+
+  /* Radii */
+  --radius-sm: 0.75rem;
+  --radius-md: 1.25rem;
+  --radius-lg: 1.75rem;
+  --radius-pill: 999px;
+
+  /* Lines, focus, links */
   --border-width: 1px;
   --focus-width: 3px;
-  --focus-offset: 4px;
+  --focus-offset: 3px;
   --link-underline: 0.08em;
   --link-offset: 0.18em;
   --skip-offset: 1rem;
   --skip-layer: 10;
+
+  --ease: cubic-bezier(0.32, 0.72, 0, 1);
 }
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-page: #1d211f;
-    --color-surface: #292f2b;
-    --color-text: #f3f1e9;
-    --color-muted: #bfc5bb;
-    --color-link: #a0bfff;
-    --color-border: #626a61;
-    --color-focus: #b6ceff;
+    --color-page: #0e0f12;
+    --color-surface: #141519;
+    --color-card: #17191f;
+    --color-text: #f4f3ee;
+    --color-muted: #a0a3ac;
+    --color-link: #f4f3ee;
+    --color-border: rgba(255, 255, 255, 0.12);
+    --color-focus: #f5c518;
+    --color-accent-soft: rgba(245, 197, 24, 0.2);
+    --color-grid: rgba(255, 255, 255, 0.055);
+    --shadow-card:
+      0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 26px -16px rgba(0, 0, 0, 0.6);
+    --shadow-lift:
+      0 1px 2px rgba(0, 0, 0, 0.4), 0 20px 46px -22px rgba(0, 0, 0, 0.7);
   }
 }
 

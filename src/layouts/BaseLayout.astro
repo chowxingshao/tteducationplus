@@ -74,6 +74,12 @@ const fontPath = withBase('/fonts/source-sans-3-latin.woff2', site);
       is:inline
       set:html={`@font-face { font-family: 'Source Sans 3'; src: url(${JSON.stringify(encodeURI(fontPath))}) format('woff2'); font-style: normal; font-weight: 200 900; font-display: swap; }`}
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Noto+Sans+TC:wght@500;700&family=Space+Mono:wght@400;700&display=swap"
+    />
   </head>
   <body>
     <a class="skip-link" href="#main-content">

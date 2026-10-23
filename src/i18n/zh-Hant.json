@@ -1,0 +1,211 @@
+{
+  "starter": {
+    "demoNotice": "示範值：請在 site.config.ts 中替換網站識別與來源網址。",
+    "nextStep": "閱讀 docs/getting-started.md 以設定你的專案。"
+  },
+  "nav": {
+    "home": "首頁",
+    "about": "關於",
+    "contact": "聯絡",
+    "blog": "網誌",
+    "projects": "作品",
+    "subjects": "科目",
+    "approach": "上課方式",
+    "schedule": "時間表",
+    "gallery": "相簿",
+    "faq": "常見問題"
+  },
+  "accessibility": {
+    "skipContent": "跳至內容",
+    "language": "語言",
+    "theme": "色彩主題",
+    "primaryNavigation": "主要導覽",
+    "footerNavigation": "頁尾導覽"
+  },
+  "theme": {
+    "light": "淺色",
+    "dark": "深色",
+    "system": "系統"
+  },
+  "blog": {
+    "title": "網誌",
+    "description": "文章與更新。",
+    "empty": "尚未發佈任何文章。"
+  },
+  "projects": {
+    "title": "作品",
+    "description": "精選作品與項目。",
+    "empty": "尚未發佈任何項目。"
+  },
+  "pagination": {
+    "previous": "上一頁",
+    "next": "下一頁"
+  },
+  "notFound": {
+    "returnHome": "返回首頁"
+  },
+  "contact": {
+    "legend": "傳送訊息",
+    "required": "所有欄位均為必填。",
+    "submit": "傳送訊息",
+    "website": "網站",
+    "unconfigured": "聯絡表單尚未設定。",
+    "invalid": "請檢查標示的欄位。",
+    "spam": "無法傳送此訊息。",
+    "fields": {
+      "name": {
+        "label": "姓名",
+        "required": "請輸入您的姓名。"
+      },
+      "email": {
+        "label": "電郵",
+        "required": "請輸入您的電郵地址。",
+        "invalid": "請輸入有效的電郵地址。"
+      },
+      "message": {
+        "label": "訊息",
+        "required": "請輸入訊息。"
+      }
+    }
+  },
+  "home": {
+    "meta": {
+      "title": "TT Education Plus — Teacher Thomas 補習",
+      "description": "由 Teacher Thomas 提供考試準備、一對一及到府補習，涵蓋科學、化學、物理、數學、歷史與馬來文。"
+    },
+    "hero": {
+      "eyebrow": "SPM 與中學考試準備",
+      "since": "自 2014 年",
+      "titleLead": "提升成績，",
+      "titleHighlight": "最輕鬆",
+      "titleTrail": "的方法。",
+      "lede": "由 Teacher Thomas 提供一對一、考試準備及到府補習——涵蓋科學、化學、物理、數學、歷史（Sejarah）與馬來文（BM）。",
+      "ctaWhatsapp": "透過 WhatsApp 聯絡",
+      "ctaInstagram": "追蹤 @ttedu.plus",
+      "ctaWhatsappShort": "WhatsApp",
+      "trustRating": "家長信賴",
+      "trustYears": "10+ 年教學經驗",
+      "trustLangs": "EN · BM · 中文",
+      "chip1": "化學",
+      "chip2": "物理",
+      "reportLabel": "進度報告",
+      "reportStudent": "學生 · 中五",
+      "reportTerm": "本學期",
+      "reportNoteKey": "為何有效",
+      "reportNote": "帶著覺察學習，而非壓力。",
+      "reportSubject1": "化學",
+      "reportSubject2": "物理",
+      "reportSubject3": "數學"
+    },
+    "ways": {
+      "eyebrow": "上課方式",
+      "title": "三種學習方式。",
+      "examTitle": "考試準備",
+      "examBody": "針對性的 SPM 複習、歷屆試題練習與答題技巧，把努力化為分數。",
+      "oneTitle": "一對一補習",
+      "oneBody": "全神貫注於一位學生——依照他們真正的學習方式調整步調。",
+      "doorTitle": "到府補習",
+      "doorBody": "在適合您一週安排的時間到府授課，放學後無需再奔波。"
+    },
+    "subjects": {
+      "eyebrow": "我教的科目",
+      "titleLead": "六個科目，一套",
+      "titleHighlight": "清晰",
+      "titleTrail": "的系統。",
+      "intro": "中四至中五及 SPM 核心科目，以 Tt Learning System 教授。此為暫定內容——日後將以您的實際課程資訊取代。",
+      "chemName": "化學",
+      "chemLevel": "中四–中五 · SPM",
+      "chemBody": "讓反應、莫耳與有機化學變得直觀，每堂都有考試式的結構題。",
+      "physName": "物理",
+      "physLevel": "中四–中五 · SPM",
+      "physBody": "從基本原理建立力、電與波的概念，讓公式終於說得通。",
+      "mathName": "數學",
+      "mathLevel": "中四–中五 · SPM",
+      "mathBody": "從代數到三角——以方法為先的解題，經得起考試壓力。",
+      "sciName": "科學",
+      "sciLevel": "初中",
+      "sciBody": "為中一至中三打好生物、化學與物理基礎，迎接重要的 SPM 年份。",
+      "sejName": "歷史 (Sejarah)",
+      "sejLevel": "中四–中五 · SPM",
+      "sejBody": "時間線、主題與作文結構——記得更牢，寫出能得分的答案。",
+      "bmName": "馬來文 (BM)",
+      "bmLevel": "中四–中五 · SPM",
+      "bmBody": "作文、文學組件與理解技巧，讓 BM 試卷更有把握。"
+    },
+    "gallery": {
+      "eyebrow": "課堂一隅",
+      "title": "看看我們如何學習。",
+      "intro": "相片即將上線——課堂、白板與 Tt Learning System 的成果。",
+      "placeholder": "相片即將上線"
+    },
+    "schedule": {
+      "eyebrow": "每週時間表",
+      "titleLead": "為你找到合適的",
+      "titleHighlight": "時段",
+      "titleTrail": "安排。",
+      "intro": "每週可預約時間僅供參考。請透過 WhatsApp 聯絡以確認時間。",
+      "note": "時間僅供參考——到府時段視您的所在地而定。",
+      "block1Days": "週一–週五",
+      "block1Time": "下午 4:00 – 6:30",
+      "block1Mode": "放學後一對一",
+      "block1Status": "開放",
+      "block2Days": "週一–週五",
+      "block2Time": "晚上 7:30 – 9:30",
+      "block2Mode": "晚間考試準備",
+      "block2Status": "名額有限",
+      "block3Days": "週六–週日",
+      "block3Time": "上午 10:00 – 下午 4:00",
+      "block3Mode": "到府與小組",
+      "block3Status": "開放"
+    },
+    "faq": {
+      "eyebrow": "常見問題",
+      "titleLead": "值得",
+      "titleHighlight": "一讀。",
+      "q1": "你教哪些程度？",
+      "a1": "主要是初中科學以及中四至中五／SPM 科目。把孩子的程度用 WhatsApp 告訴我，我會誠實地告訴你我是否合適。",
+      "q2": "到府補習如何進行？",
+      "a2": "我會到你家授課，放學後無需額外奔波。服務範圍與時間視你的地區而定——歡迎詢問。",
+      "q3": "你是一對一還是小組教學？",
+      "a3": "兩者皆可。一對一最專注；部分科目與時段也提供小組。",
+      "q4": "你用什麼語言教學？",
+      "a4": "課程可用英文、馬來文或華語進行，依學生最自在的語言為準。",
+      "q5": "費用是多少？",
+      "a5": "收費視科目、程度與形式而定。請透過 WhatsApp 詢問最新價格——無任何義務。",
+      "q6": "如何開始？",
+      "a6": "用 WhatsApp 傳來學生的程度與科目，我們會安排第一堂課，再逐步進行。"
+    },
+    "about": {
+      "eyebrow": "關於 Teacher Thomas",
+      "titleLead": "十年來",
+      "titleHighlight": "耐心",
+      "titleTrail": "教學。",
+      "body1": "Teacher Thomas 自 2014 年起為馬來西亞中學生補習，協助他們在理科、數學與語文上把困惑化為自信。",
+      "body2": "Tt Learning System 建立於一個簡單理念——帶著覺察學習，而非壓力。課程先重理解，再談考試技巧，成績自然隨之而來。",
+      "stat1Num": "2014",
+      "stat1Label": "開始教學",
+      "stat2Num": "6",
+      "stat2Label": "科目",
+      "stat3Num": "3",
+      "stat3Label": "語言"
+    },
+    "contact": {
+      "eyebrow": "聯絡我們",
+      "titleLead": "隨時",
+      "titleHighlight": "為你準備。",
+      "intro": "透過 WhatsApp 聯絡，或在 Instagram 追蹤。沒有表單、不麻煩——只需簡單聊聊孩子的需要。",
+      "whatsappLabel": "在 WhatsApp 聊聊",
+      "instagramLabel": "在 Instagram 傳訊息",
+      "hoursLabel": "一般時間",
+      "hours": "週一至週日，下午與晚上",
+      "areaLabel": "服務範圍",
+      "area": "到府服務，遍及巴生谷"
+    },
+    "footer": {
+      "tagline": "帶著覺察學習，輕鬆進步。",
+      "navHeading": "探索",
+      "rights": "版權所有。",
+      "disclaimer": "暫定內容，待審閱。"
+    }
+  }
+}

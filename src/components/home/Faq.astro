@@ -1,0 +1,118 @@
+---
+import { getUi } from '../../lib/i18n/ui.ts';
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+const ui = await getUi(locale);
+const f = ui.home.faq;
+const items = [
+  { q: f.q1, a: f.a1 },
+  { q: f.q2, a: f.a2 },
+  { q: f.q3, a: f.a3 },
+  { q: f.q4, a: f.a4 },
+  { q: f.q5, a: f.a5 },
+  { q: f.q6, a: f.a6 },
+];
+---
+
+<section class="site-section faq" id="faq">
+  <div class="shell faq-shell">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">
+        <span class="dot"></span>
+        {f.eyebrow}
+      </span>
+      <h2>
+        {f.titleLead} <span class="highlight">{f.titleHighlight}</span>
+      </h2>
+    </div>
+    <div class="faq-list" data-reveal>
+      {items.map((item) => (
+        <details class="faq-item">
+          <summary>
+            <span>{item.q}</span>
+            <span class="faq-sign" aria-hidden="true" />
+          </summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-shell {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .faq-item {
+    border-block-end: var(--border-width) solid var(--color-border);
+  }
+  .faq-item:first-child {
+    border-block-start: var(--border-width) solid var(--color-border);
+  }
+  .faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding-block: 1.1rem;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-display);
+    font-weight: var(--weight-heading);
+    font-size: 1.05rem;
+  }
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-sign {
+    position: relative;
+    inline-size: 1.1rem;
+    block-size: 1.1rem;
+    flex: none;
+  }
+  .faq-sign::before,
+  .faq-sign::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    inline-size: 0.8rem;
+    block-size: 0.14rem;
+    background: var(--color-accent);
+    transform: translate(-50%, -50%);
+    transition: transform 0.35s var(--ease);
+  }
+  .faq-sign::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+  .faq-item[open] .faq-sign::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  .faq-item p {
+    margin: 0;
+    padding-block-end: 1.1rem;
+    color: var(--color-muted);
+    max-inline-size: 54ch;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .faq-sign::before,
+    .faq-sign::after {
+      transition: none;
+    }
+  }
+  @media (max-width: 760px) {
+    .faq-shell {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+  }
+</style>

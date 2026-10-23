@@ -1,0 +1,58 @@
+---
+interface Props {
+  size?: number;
+  class?: string;
+}
+const { size = 42, class: className } = Astro.props;
+---
+
+<span
+  class:list={['brand-badge', className]}
+  style={`--badge-size: ${size}px`}
+  aria-hidden="true"
+>
+  <svg viewBox="0 0 42 42" role="img" focusable="false">
+    <circle cx="21" cy="21" r="21" fill="#16171b"></circle>
+    <text
+      x="21"
+      y="26"
+      text-anchor="middle"
+      font-family="'Bricolage Grotesque', sans-serif"
+      font-weight="800"
+      font-size="20"
+      fill="#ffffff"
+    >
+      Tt
+    </text>
+    <text
+      x="21"
+      y="25"
+      text-anchor="middle"
+      font-family="'Bricolage Grotesque', sans-serif"
+      font-weight="800"
+      font-size="20"
+      fill="#f5c518"
+      clip-path="inset(0 0 0 52%)"
+    >
+      Tt
+    </text>
+    <rect x="15" y="31" width="12" height="2.4" rx="1.2" fill="#f5c518"></rect>
+  </svg>
+</span>
+
+<style>
+  .brand-badge {
+    inline-size: var(--badge-size);
+    block-size: var(--badge-size);
+    flex: none;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    box-shadow: var(--shadow-card);
+  }
+  .brand-badge svg {
+    inline-size: 100%;
+    block-size: 100%;
+    display: block;
+  }
+</style>
