@@ -41,6 +41,10 @@ describe('real Astro content builds', () => {
     const fixture = await build(
       {
         'src/pages/content-test.json.ts': probe,
+        'src/content/pages/en/about.md':
+          '---\ntitle: About\ndescription: About.\nslug: about\ndraft: false\n---\nAbout body.\n',
+        'src/content/pages/en/contact.md':
+          '---\ntitle: Contact\ndescription: Contact.\nslug: contact\ndraft: false\n---\nContact body.\n',
         'src/content/posts/en/file-a.md': post('zulu', '2026-10-09'),
         'src/content/posts/en/file-b.md': post('alpha', '2026-10-09'),
         'src/content/posts/ms/translated-file.md': post('alpha', '2026-10-09'),

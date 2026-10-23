@@ -1,13 +1,53 @@
-# Replaceable demonstration direction
+# Design direction — TT Education Plus
 
-This starter displays an editorial specimen, not a permanent brand. Before client work, read the brief, propose two or three distinct directions, select one with the client, and replace this document and the presentation.
+Selected direction: **Highlighter Study**. Approved by the client from a live
+hero mockup on 2026-10-23.
 
-The light palette is warm paper (#f8f6f1), a quiet surface (#efede6), charcoal text (#242724), muted text (#565b55), and a single blue link accent (#2153b8). Dark preference uses green-charcoal paper (#1d211f), surfaces (#292f2b), cream text (#f3f1e9), muted text (#bfc5bb), and pale blue links (#a0bfff). All values live in src/styles/tokens.css. Links remain underlined; keyboard focus uses a contrasting 3px outline with a 4px offset.
+## Concept
 
-Self-hosted Source Sans 3 supplies upright variable weights 200–900 with font-display: swap. The Latin-facing file is the unmodified 170,188-byte upright TTF WOFF2 from Adobe's official release, retaining its original names and public/fonts/OFL.txt. It also covers Greek/Cyrillic; it is not a custom subset. Source: https://github.com/adobe-fonts/source-sans/tree/release/WOFF2/VF and https://github.com/adobe-fonts/source-sans/blob/release/LICENSE.md. A client may subset its approved font while respecting reserved names and licensing. Configure a matching self-hosted script font whenever a client's enabled language falls outside this font's coverage, including Arabic. Browser fallback in the Arabic routing test is not a finished Arabic design.
+A clean, studious landing page built around the brand's black / white / yellow
+badge. The signature device is a **yellow "highlighter" sweep** over the key
+word in each major heading — a nod to marking up a textbook. Light theme by
+default (white with a faint graph-paper panel behind the hero), with a fully
+designed dark theme that echoes the black logo. Motion is light: a gentle
+reveal on load and small hover lifts.
 
-Body text is 18px at the standard root size with 1.65 line height. Fluid headings span 36–64px. Reading text stays within 44rem, inside a 70rem shell. The spacing scale is 0.5, 1, 1.5, and 2.5rem, with fluid 3–6rem page sections. Simple navigation wraps naturally. Entry lists use separators and optional images rather than a fixed card system. Logical properties support both directions.
+## Palette (tokens in `src/styles/tokens.css`)
 
-Motion character: power2.out, 0.35–0.6 seconds, short vertical section entrances. No default pinning or cursor effects. The Task 7 helper layer scopes every page animation and cleans it up during navigation; content is visible immediately and works without JavaScript or when reduced motion is requested.
+- Ink (near-black, slightly warm): `#16171b` light / paper `#f4f3ee` dark
+- Page background: `#ffffff` light / `#0e0f12` dark
+- Panel (graph paper): warm off-white `#faf9f4` / `#141519`
+- Highlighter yellow (accent, both themes): `#f5c518`
+- Muted text, hairline borders, soft card shadows.
 
-Normal text and blue links must meet WCAG AA contrast against their backgrounds in both schemes; verify the selected client palette again after every change. The skip link becomes visible on focus. Task 4 verification and outstanding quality evidence are recorded in docs/quality-report.md.
+## Type
+
+- **Display:** Bricolage Grotesque (characterful grotesque, used for headings).
+- **Body:** Source Sans 3 (already self-hosted by the template; clean, formal).
+- **Labels / data:** Space Mono (eyebrows, level tags, report card).
+- **CJK:** Noto Sans TC covers the Traditional-Chinese locale.
+
+Bricolage Grotesque, Space Mono and Noto Sans TC load from Google Fonts; Source
+Sans 3 stays self-hosted. See the dependency justification in `README`.
+
+## Layout
+
+Single scrolling home page with anchored sections, reachable from the header:
+Hero → How it works (Exam Prep / 1-to-1 / Door-to-Door) → Subjects (6 cards) →
+Gallery → Schedule → FAQ → About → Contact (WhatsApp + Instagram, no form).
+
+## Localisation
+
+Trilingual: English (default), Bahasa Melayu (`ms`), Traditional Chinese
+(`zh-Hant`). All landing copy lives in the UI dictionaries (`src/content/ui.json`
+plus `src/i18n/ms.json`, `src/i18n/zh-Hant.json`). The BM and ZH dictionaries
+are **draft translations and must be reviewed by a native speaker before
+launch** (per the template's i18n policy).
+
+## Placeholders to replace before launch
+
+- Real logo artwork (currently a CSS/SVG badge placeholder).
+- Real WhatsApp number (currently `wa.me/60000000000`).
+- Gallery photos (currently styled placeholders).
+- Real course details, schedule times, and FAQ answers.
+- Production domain in `site.config.ts` (`url`).

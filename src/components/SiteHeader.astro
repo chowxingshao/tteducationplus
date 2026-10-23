@@ -1,4 +1,5 @@
 ---
+import BrandBadge from './BrandBadge.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import { getSiteConfig } from '../lib/config/site.ts';
 import { getUi } from '../lib/i18n/ui.ts';
@@ -18,58 +19,153 @@ const routes = (await getRouteManifest()).filter(
 const home = routes.find(
   (route) => route.kind === 'page' && route.slug === 'home',
 );
+const homePath = home?.path ?? '/';
+const anchor = (id: string) => `${homePath}#${id}`;
 const links = [
-  { route: home, label: ui.nav.home },
-  {
-    route: routes.find(
-      (route) => route.kind === 'page' && route.slug === 'about',
-    ),
-    label: ui.nav.about,
-  },
-  {
-    route: routes.find((route) => route.kind === 'post-index'),
-    label: ui.nav.blog,
-  },
-  {
-    route: routes.find((route) => route.kind === 'project-index'),
-    label: ui.nav.projects,
-  },
-  {
-    route: routes.find(
-      (route) => route.kind === 'page' && route.slug === 'contact',
-    ),
-    label: ui.nav.contact,
-  },
+  { href: anchor('subjects'), label: ui.nav.subjects },
+  { href: anchor('approach'), label: ui.nav.approach },
+  { href: anchor('schedule'), label: ui.nav.schedule },
+  { href: anchor('faq'), label: ui.nav.faq },
+  { href: anchor('contact'), label: ui.nav.contact },
 ];
 const locales = enabledLocales(site);
+const whatsapp = site.social.whatsapp;
 ---
 
-<header class="site-header shell">
-  {home ? (
-    <a class="site-name" href={home.path}>
-      {site.name}
+<header class="site-header">
+  <div class="shell site-header-inner">
+    <a class="brand" href={homePath}>
+      <BrandBadge size={42} />
+      <span class="brand-text">
+        <strong>{site.name}</strong>
+        <span class="brand-sub">Teacher Thomas · Est. 2014</span>
+      </span>
     </a>
-  ) : (
-    <span class="site-name">{site.name}</span>
-  )}
-  <nav aria-label={ui.accessibility.primaryNavigation}>
-    <ul class="nav-list">
-      {links.map(
-        ({ route, label }) =>
-          route && (
-            <li>
-              <a
-                href={route.path}
-                aria-current={current?.path === route.path ? 'page' : undefined}
-              >
-                {label}
-              </a>
-            </li>
-          ),
+    <nav class="primary-nav" aria-label={ui.accessibility.primaryNavigation}>
+      <ul class="nav-list">
+        {links.map((link) => (
+          <li>
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="header-actions">
+      {current && locales.length > 1 && (
+        <LanguageSwitcher current={current} locales={locales} />
       )}
-    </ul>
-  </nav>
-  {current && locales.length > 1 && (
-    <LanguageSwitcher current={current} locales={locales} />
-  )}
+      {whatsapp && (
+        <a
+          class="btn btn-primary btn-sm"
+          href={whatsapp}
+          target="_blank"
+          rel="noopener"
+        >
+          {ui.home.hero.ctaWhatsappShort}
+          <span class="btn-icon" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M7 17 17 7M9 7h8v8" />
+            </svg>
+          </span>
+        </a>
+      )}
+    </div>
+  </div>
 </header>
+
+<style>
+  .site-header {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 20;
+    background: color-mix(in srgb, var(--color-page) 84%, transparent);
+    backdrop-filter: blur(14px) saturate(1.3);
+    border-block-end: var(--border-width) solid var(--color-border);
+  }
+  .site-header-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding-block: 0.75rem;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+    color: var(--color-text);
+  }
+  .brand:hover {
+    text-decoration: none;
+  }
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .brand-text strong {
+    font-family: var(--font-display);
+    font-weight: var(--weight-heading);
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+  }
+  .brand-sub {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .primary-nav {
+    margin-inline: auto;
+  }
+  .nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs) var(--space-md);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .primary-nav a {
+    color: var(--color-muted);
+    text-decoration: none;
+    font-size: var(--font-size-small);
+    font-weight: var(--weight-medium);
+    padding-block: var(--space-xs);
+  }
+  .primary-nav a:hover {
+    color: var(--color-text);
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-inline-start: auto;
+  }
+  @media (max-width: 900px) {
+    .site-header-inner {
+      flex-wrap: wrap;
+    }
+    .primary-nav {
+      order: 3;
+      flex-basis: 100%;
+      margin-inline: 0;
+    }
+    .nav-list {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+    }
+    .header-actions {
+      margin-inline-start: 0;
+    }
+  }
+</style>

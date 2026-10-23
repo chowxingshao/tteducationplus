@@ -14,7 +14,7 @@ describe('UI dictionaries', () => {
   });
   it('rejects unknown or disabled UI locales', async () => {
     await expect(getUi('de')).rejects.toThrow(/Unknown locale.*de/);
-    await expect(getUi('ms')).rejects.toThrow(/Unknown locale.*ms/);
+    await expect(getUi('fr')).rejects.toThrow(/Unknown locale.*fr/);
   });
   it('merges overrides and warns once when keys are missing', () => {
     const warn = vi.fn();
@@ -95,6 +95,8 @@ it('loads optional dictionary files and caches route and UI fallbacks in a real 
       'src/i18n/ms.json': JSON.stringify({
         starter: { demoNotice: 'Nilai demo.' },
       }),
+      'src/content/pages/en/about.md':
+        '---\ntitle: About\ndescription: About this fixture.\nslug: about\ndraft: false\n---\nAbout body.\n',
       'src/pages/route-test.json.ts': `import { getRouteManifest } from '../lib/routing/manifest.ts';
 import { getUi } from '../lib/i18n/ui.ts';
 export async function GET() {

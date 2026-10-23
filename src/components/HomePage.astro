@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from './home/Hero.astro';
+import Ways from './home/Ways.astro';
+import Subjects from './home/Subjects.astro';
+import Gallery from './home/Gallery.astro';
+import Schedule from './home/Schedule.astro';
+import Faq from './home/Faq.astro';
+import About from './home/About.astro';
+import Contact from './home/Contact.astro';
+import { getUi } from '../lib/i18n/ui.ts';
+import type { RouteRecord } from '../lib/routing/types.ts';
+interface Props {
+  route: RouteRecord;
+}
+const { route } = Astro.props;
+const locale = route.locale;
+const entry = route.entry;
+if (!entry) throw new Error('The home route requires a content entry.');
+const ui = await getUi(locale);
+const title = ui.home.meta.title;
+const description = ui.home.meta.description;
+const structuredData =
+  'structuredData' in entry.data ? entry.data.structuredData : undefined;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  locale={locale}
+  contentLocale={route.contentLocale}
+  route={route}
+  structuredData={structuredData}
+>
+  <div class="home" data-page-motion>
+    <Hero locale={locale} />
+    <Ways locale={locale} />
+    <Subjects locale={locale} />
+    <Gallery locale={locale} />
+    <Schedule locale={locale} />
+    <Faq locale={locale} />
+    <About locale={locale} />
+    <Contact locale={locale} />
+  </div>
+</BaseLayout>
+
+<script>
+  import { installPageMotionLifecycle } from '../scripts/page-motion.ts';
+
+  installPageMotionLifecycle(document);
+</script>

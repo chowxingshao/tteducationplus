@@ -1,0 +1,99 @@
+---
+import { getUi } from '../../lib/i18n/ui.ts';
+interface Props {
+  locale: string;
+}
+const { locale } = Astro.props;
+const ui = await getUi(locale);
+const ways = ui.home.ways;
+const items = [
+  { num: '1', title: ways.examTitle, body: ways.examBody },
+  { num: '2', title: ways.oneTitle, body: ways.oneBody },
+  { num: '3', title: ways.doorTitle, body: ways.doorBody },
+];
+---
+
+<section class="site-section ways" id="approach">
+  <div class="shell">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">
+        <span class="dot"></span>
+        {ways.eyebrow}
+      </span>
+      <h2>{ways.title}</h2>
+    </div>
+    <ul class="ways-grid" data-reveal>
+      {items.map((item) => (
+        <li class="way">
+          <span class="way-num" aria-hidden="true">
+            {item.num}
+          </span>
+          <div>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .ways {
+    border-block-start: var(--border-width) solid var(--color-border);
+  }
+  .ways-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-sm);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .way {
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+    padding: 1.4rem 1.5rem;
+    border-radius: var(--radius-md);
+    background: var(--color-card);
+    border: var(--border-width) solid var(--color-border);
+    box-shadow: var(--shadow-card);
+    transition: transform 0.4s var(--ease);
+  }
+  .way:hover {
+    transform: translateY(-3px);
+  }
+  .way-num {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-on-accent);
+    background: var(--color-accent);
+    inline-size: 1.9rem;
+    block-size: 1.9rem;
+    border-radius: 0.6rem;
+    display: grid;
+    place-items: center;
+    flex: none;
+  }
+  .way h3 {
+    margin: 0;
+    font-size: var(--font-size-subheading);
+  }
+  .way p {
+    margin: 0.4rem 0 0;
+    font-size: var(--font-size-small);
+    color: var(--color-muted);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .way {
+      transition: none;
+    }
+  }
+  @media (max-width: 760px) {
+    .ways-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

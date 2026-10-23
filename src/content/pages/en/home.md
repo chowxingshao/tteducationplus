@@ -1,14 +1,16 @@
 ---
-title: A starting point for your next website
-description: Demonstration content for a reusable static website starter.
+title: TT Education Plus — Tutoring with Teacher Thomas
+description: Exam prep, one-to-one and door-to-door tutoring with Teacher Thomas for Science, Chemistry, Physics, Maths, Sejarah and BM.
 slug: home
 draft: false
+structuredData:
+  type: LocalBusiness
+  name: TT Education Plus
+  url: https://tteducationplus.com
+  sameAs:
+    - https://instagram.com/ttedu.plus
 ---
 
-This is demonstration copy. Replace it with the project's approved introduction.
-
-Canvas Base provides a starting point for a static site with validated content. This sample describes the starter, not a client's services or achievements.
-
-## Make it your own
-
-Begin with your brief, choose a visual direction, and replace these sample pages with approved copy. The navigation, articles, and project entries are here to demonstrate a content-driven static site.
+The home page is composed from section components; this file supplies the page
+title, description and structured data. Edit the visible copy in the UI
+dictionaries (`src/content/ui.json` and `src/i18n/*.json`).

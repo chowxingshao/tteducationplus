@@ -1,26 +1,32 @@
 import type { SiteConfig } from './src/lib/config/schema.ts';
 
-// Demo identity only: replace these four values for each client project.
+// Client identity for TT Education Plus. The production domain and the real
+// WhatsApp number are placeholders — replace `url` and `social.whatsapp`
+// before launch. All values here are public: no secrets.
 export const siteConfig = {
-  name: 'Canvas Base',
-  shortName: 'Canvas',
-  description: 'A reusable static website starter.',
-  url: 'https://example.com',
-  base: '/',
+  name: 'TT Education Plus',
+  shortName: 'TT Education Plus',
+  description:
+    'Exam prep, one-to-one and door-to-door tutoring with Teacher Thomas — Science, Chemistry, Physics, Maths, Sejarah and BM.',
+  url: 'https://chowxingshao.github.io',
+  base: '/tteducationplus/',
   language: 'en',
-  author: '',
+  author: 'Teacher Thomas',
   email: '',
   formEndpoint: '',
-  social: {},
+  social: {
+    instagram: 'https://instagram.com/ttedu.plus',
+    whatsapp: 'https://wa.me/60000000000',
+  },
   analyticsId: '',
   defaultOgImage: '/og-default.png',
-  i18n: { defaultLocale: 'en', locales: ['en'] },
+  i18n: { defaultLocale: 'en', locales: ['en', 'ms', 'zh-Hant'] },
   features: {
-    blog: true,
-    projects: true,
-    rss: true,
+    blog: false,
+    projects: false,
+    rss: false,
     motion: true,
-    i18n: false,
-    deploy: 'none',
+    i18n: true,
+    deploy: 'github-pages',
   },
 } satisfies SiteConfig;
