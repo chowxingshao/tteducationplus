@@ -8,8 +8,8 @@ export const siteConfig = {
   shortName: 'TT Education Plus',
   description:
     'Exam prep, one-to-one and door-to-door tutoring with Teacher Thomas — Science, Chemistry, Physics, Maths, Sejarah and BM.',
-  url: 'https://tteducationplus.com',
-  base: '/',
+  url: 'https://chowxingshao.github.io',
+  base: '/tteducationplus/',
   language: 'en',
   author: 'Teacher Thomas',
   email: '',
@@ -27,6 +27,6 @@ export const siteConfig = {
     rss: false,
     motion: true,
     i18n: true,
-    deploy: 'none',
+    deploy: 'github-pages',
   },
 } satisfies SiteConfig;
