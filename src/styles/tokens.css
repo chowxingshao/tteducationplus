@@ -85,8 +85,10 @@
   --ease: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
+/* Dark palette. Applies when the OS prefers dark (unless the viewer forced
+   light), and whenever the viewer explicitly chooses dark via the toggle. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme='light']) {
     --color-page: #0e0f12;
     --color-surface: #141519;
     --color-card: #17191f;
@@ -102,6 +104,26 @@
     --shadow-lift:
       0 1px 2px rgba(0, 0, 0, 0.4), 0 20px 46px -22px rgba(0, 0, 0, 0.7);
   }
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-page: #0e0f12;
+  --color-surface: #141519;
+  --color-card: #17191f;
+  --color-text: #f4f3ee;
+  --color-muted: #a0a3ac;
+  --color-link: #f4f3ee;
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-focus: #f5c518;
+  --color-accent-soft: rgba(245, 197, 24, 0.2);
+  --color-grid: rgba(255, 255, 255, 0.055);
+  --shadow-card:
+    0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 26px -16px rgba(0, 0, 0, 0.6);
+  --shadow-lift:
+    0 1px 2px rgba(0, 0, 0, 0.4), 0 20px 46px -22px rgba(0, 0, 0, 0.7);
+}
+:root[data-theme='light'] {
+  color-scheme: light;
 }
 
 @media (prefers-reduced-motion: no-preference) {

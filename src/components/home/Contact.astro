@@ -9,6 +9,9 @@ const site = getSiteConfig();
 const ui = await getUi(locale);
 const c = ui.home.contact;
 const whatsapp = site.social.whatsapp;
+const waHref = whatsapp
+  ? `${whatsapp}?text=${encodeURIComponent(c.waMessage)}`
+  : undefined;
 const instagram = site.social.instagram;
 ---
 
@@ -25,10 +28,10 @@ const instagram = site.social.instagram;
         </h2>
         <p class="contact-intro">{c.intro}</p>
         <div class="contact-cta">
-          {whatsapp && (
+          {waHref && (
             <a
               class="btn btn-primary"
-              href={whatsapp}
+              href={waHref}
               target="_blank"
               rel="noopener"
             >

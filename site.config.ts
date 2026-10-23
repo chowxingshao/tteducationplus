@@ -4,10 +4,10 @@ import type { SiteConfig } from './src/lib/config/schema.ts';
 // WhatsApp number are placeholders — replace `url` and `social.whatsapp`
 // before launch. All values here are public: no secrets.
 export const siteConfig = {
-  name: 'TT Education Plus',
-  shortName: 'TT Education Plus',
+  name: 'TT Education⁺',
+  shortName: 'TT Education⁺',
   description:
-    'Exam prep, one-to-one and door-to-door tutoring with Teacher Thomas — Science, Chemistry, Physics, Maths, Sejarah and BM.',
+    'Personalised one-to-one, small-group and online tutoring with Teacher Thomas — SPM and IGCSE exam preparation for secondary students.',
   url: 'https://chowxingshao.github.io',
   base: '/tteducationplus/',
   language: 'en',

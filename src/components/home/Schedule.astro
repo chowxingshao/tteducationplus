@@ -44,9 +44,9 @@ const rows = [
       </h2>
       <p class="section-intro">{sc.intro}</p>
     </div>
-    <ul class="schedule-list" data-reveal>
+    <ul class="schedule-list">
       {rows.map((row) => (
-        <li class="schedule-row">
+        <li class="schedule-row" data-reveal>
           <span class="schedule-days">{row.days}</span>
           <span class="schedule-time">{row.time}</span>
           <span class="schedule-mode">{row.mode}</span>

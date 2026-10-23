@@ -11,7 +11,7 @@ export type RevealOptions = {
   stagger?: number;
 };
 
-type ResolvedRevealOptions = Required<RevealOptions>;
+export type ResolvedRevealOptions = Required<RevealOptions>;
 
 const defaults: ResolvedRevealOptions = {
   direction: 'up',
@@ -77,6 +77,19 @@ function startingPosition(options: ResolvedRevealOptions) {
   }
 }
 
+/** Resolve the reveal options for an element (explicit options win over data-*). */
+export function resolveReveal(
+  element: Element,
+  options: RevealOptions = {},
+): ResolvedRevealOptions {
+  return resolve(element, options);
+}
+
+/** The hidden start state for a reveal, used to pre-set elements before scroll. */
+export function revealStartVars(resolved: ResolvedRevealOptions) {
+  return { autoAlpha: 0, ...startingPosition(resolved) };
+}
+
 export function reveal(
   element: Element | Element[],
   options: RevealOptions = {},
@@ -86,18 +99,14 @@ export function reveal(
   const first = Array.isArray(element) ? element[0] : element;
   if (!first) return null;
   const resolved = resolve(first, options);
-  return gsap.fromTo(
-    element,
-    { autoAlpha: 0, ...startingPosition(resolved) },
-    {
-      autoAlpha: 1,
-      x: 0,
-      y: 0,
-      duration: resolved.duration,
-      delay: resolved.delay,
-      ease: resolved.ease,
-      stagger: resolved.stagger,
-      overwrite: 'auto',
-    },
-  );
+  return gsap.fromTo(element, revealStartVars(resolved), {
+    autoAlpha: 1,
+    x: 0,
+    y: 0,
+    duration: resolved.duration,
+    delay: resolved.delay,
+    ease: resolved.ease,
+    stagger: resolved.stagger,
+    overwrite: 'auto',
+  });
 }

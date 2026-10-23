@@ -39,6 +39,19 @@ const fontPath = withBase('/fonts/source-sans-3-latin.woff2', site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <meta name="color-scheme" content="light dark" />
+    <script is:inline>
+      // Apply a saved theme before paint so a manual light/dark choice wins
+      // over the OS setting without a flash. Falls back to the media query.
+      (function () {
+        try {
+          const saved = localStorage.getItem('theme');
+          if (saved === 'light' || saved === 'dark')
+            document.documentElement.dataset.theme = saved;
+        } catch {
+          /* storage unavailable — keep the OS preference */
+        }
+      })();
+    </script>
     <SeoHead
       title={title}
       description={description}

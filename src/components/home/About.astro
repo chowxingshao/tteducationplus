@@ -27,6 +27,7 @@ const stats = [
       </h2>
       <p>{a.body1}</p>
       <p>{a.body2}</p>
+      <p class="about-tags">{a.tags}</p>
     </div>
     <aside class="about-card" data-reveal data-reveal-delay="0.1">
       <BrandBadge size={64} />
@@ -39,6 +40,7 @@ const stats = [
           </li>
         ))}
       </ul>
+      <p class="about-note">{a.note}</p>
     </aside>
   </div>
 </section>
@@ -67,6 +69,25 @@ const stats = [
     margin: 0;
     color: var(--color-muted);
     max-inline-size: 48ch;
+  }
+  .about-copy .about-tags {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    margin-block-start: var(--space-xs);
+  }
+  .about-note {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    border-block-start: var(--border-width) dashed var(--color-border);
+    padding-block-start: var(--space-sm);
+    inline-size: 100%;
   }
   .about-card {
     background: var(--color-surface);
